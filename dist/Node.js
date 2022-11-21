@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * A node in a graph.
  */
@@ -122,4 +120,4 @@ class Node {
         return this;
     }
 }
-exports.default = Node;
+export default Node;

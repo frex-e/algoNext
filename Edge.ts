@@ -1,5 +1,5 @@
 import type { Canvas } from "algorithmx";
-import type Node from "./Node";
+import type Node from "./Node.js";
 
 class Edge {
   private _canvas: Canvas;

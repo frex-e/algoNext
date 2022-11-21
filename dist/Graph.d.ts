@@ -1,6 +1,6 @@
 import * as algoX from "algorithmx";
-import Node from "./Node";
-import Edge from "./Edge";
+import Node from "./Node.js";
+import Edge from "./Edge.js";
 type Uuid = string | number;
 declare class Graph {
     private cunter;

@@ -1,5 +1,5 @@
 import type { Canvas } from 'algorithmx';
-import type Edge from './Edge';
+import type Edge from './Edge.js';
 /**
  * A node in a graph.
  */

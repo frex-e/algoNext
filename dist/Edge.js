@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 class Edge {
     constructor(id, source, target, canvas, directed = false) {
         this._source = source;
@@ -47,4 +45,4 @@ class Edge {
         return this;
     }
 }
-exports.default = Edge;
+export default Edge;

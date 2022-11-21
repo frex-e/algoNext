@@ -1,34 +1,6 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const algoX = __importStar(require("algorithmx"));
-const Node_1 = __importDefault(require("./Node"));
-const Edge_1 = __importDefault(require("./Edge"));
+import * as algoX from "algorithmx";
+import Node from "./Node.js";
+import Edge from "./Edge.js";
 class Graph {
     /**
      * Creates the graph and binds it to a DOM element.
@@ -71,10 +43,10 @@ class Graph {
      * Removes the corresponding object
      */
     remove(thing) {
-        if (thing instanceof Node_1.default) {
+        if (thing instanceof Node) {
             thing = thing.id();
         }
-        if (thing instanceof Edge_1.default) {
+        if (thing instanceof Edge) {
             thing.source()._edges = thing
                 .source()
                 ._edges.filter((edge) => edge !== thing);
@@ -110,7 +82,7 @@ class Graph {
         if (this.hasNode(id)) {
             throw new Error(`Node with id ${id} already exists`);
         }
-        const node = new Node_1.default(id, this._canvas);
+        const node = new Node(id, this._canvas);
         this._nodes.push(node);
         return node;
     }
@@ -155,7 +127,7 @@ class Graph {
         if (typeof target === "string" || typeof target === "number") {
             target = this.node(target);
         }
-        const edge = new Edge_1.default(this.cunter++, source, target, this._canvas, directed);
+        const edge = new Edge(this.cunter++, source, target, this._canvas, directed);
         source._edges.push(edge);
         target._edges.push(edge);
         this._edges.push(edge);
@@ -248,4 +220,4 @@ class Graph {
         return this;
     }
 }
-exports.default = Graph;
+export default Graph;

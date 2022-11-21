@@ -1,5 +1,5 @@
-import Graph from './Graph'
-import Node from './Node'
-import Edge from './Edge'
+import Graph from './Graph.js'
+import Node from './Node.js'
+import Edge from './Edge.js'
 
 export { Graph, Node, Edge }
