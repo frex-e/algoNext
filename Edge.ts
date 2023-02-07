@@ -13,7 +13,8 @@ class Edge {
     source: Node,
     target: Node,
     canvas: Canvas,
-    directed: boolean = false
+    directed: boolean = false,
+    duration : number = 0
   ) {
     this._source = source;
     this._target = target;
@@ -23,7 +24,7 @@ class Edge {
 
     const a = canvas
       .edge([source.id(), target.id(), id])
-      .duration(0.001)
+      .duration(duration)
       .add()
       .directed(directed);
   }
@@ -55,13 +56,14 @@ class Edge {
     throw new Error(`Node ${node} not found in edge ${this._id}`);
   }
 
-  traverse(color: string, source: Node | string | number = this._source) {
+  traverse(color: string, source: Node | string | number = this._source, duration : number = 250) {
     if (typeof source != "string" && typeof source != "number") {
       source = source.id();
     }
 
     this._canvas
       .edge([this._source.id(), this._target.id(), this._id])
+      .duration(duration/1000)
       .traverse(color, source);
 
     return this

@@ -1,19 +1,24 @@
 import type { Canvas } from 'algorithmx'
 import type Edge from './Edge.js';
 
+export type NodeProperties = {
+  color?: string,
+  label?: string | number,
+  size?: string | number,
+  pos?: [number, number]
+}
 /**
  * A node in a graph.
  */
 class Node {
   private _canvas : Canvas;
-  private _value : any;
   private _label : any = null;
 
   // private _labels : Record<string | number,any> = {};
 
   private _id : string | number;
   private _color : string = 'gray';
-  attributes : Record<string | number,any> = {};
+  data : Record<string | number,any> = {};
 
   /**
    * Please do not touch, it will break things.
@@ -23,29 +28,22 @@ class Node {
   /**
    * You should not call this constructor directly.
    */
-  constructor(id : string | number, canvas : Canvas) {
+  constructor(id : string | number, canvas : Canvas,duration : number = 0) {
     this._id = id;
     this._canvas = canvas;
 
-    canvas.node(id).duration(0.01).add().color(this._color);
+    canvas.node(id).duration(duration/1000).add().color(this._color);
     return this;
-  }
-
-  setValue(value : any) {
-    this._value = value;
-    this._canvas.node(this._id).label(0).text(value).add();
-
-    return this
-  }
-
-  getValue() : any {
-    return this._value;
   }
 
   setLabel(label : string | number) {
     this._label = label;
     this._canvas.node(this._id).label("label").text(label).color('black').duration(0).add();
     return this
+  }
+
+  getLabel() : string | number {
+    return this._label;
   }
 
   /**
@@ -58,9 +56,9 @@ class Node {
   /**
    * @param color The color of the node.
    */
-  setColor(color : string) {
+  setColor(color : string,duration : number = 250) {
     this._color = color;
-    this._canvas.node(this._id).color(color);
+    this._canvas.node(this._id).duration(duration/1000).color(color);
     return this
   }
 
@@ -118,13 +116,13 @@ class Node {
     return this.outgoingEdges().length;
   }
 
-  setAttribute(key : string, value : any) {
-    this.attributes[key] = value;
+  setData(key : string, value : any) {
+    this.data[key] = value;
     return this
   }
 
-  getAttribute(key : string) : any {
-    return this.attributes[key];
+  getData(key : string) : any {
+    return this.data[key];
   }
 
   setPosition(x : number, y : number) {
@@ -136,13 +134,6 @@ class Node {
     this._canvas.node(this._id).highlight(delay/1000).duration(delay/1000).color(color).size('1.25x');
     return this
   }
-  /**
-   * Exposes underlying algox api which gives more control.
-   * If you wish to use, view Algorithmx's documentation on highlight.
-   */
-  rawHighlight() {
-    return this._canvas.node(this._id).highlight();
-  }
 
   setSize(size : number | string) {
     this._canvas.node(this._id).size(size);
@@ -152,6 +143,23 @@ class Node {
   setFixed(fixed : boolean) {
     this._canvas.node(this._id).fixed(fixed);
     return this
+  }
+
+  
+  setProperties(properties : NodeProperties, duration : number = 250) {
+    let nodeSelection = this._canvas.node(this._id).duration(duration/1000)
+    if (properties.color) {
+      nodeSelection.color(properties.color);
+    }
+    if (properties.label) {
+      nodeSelection.label('label').text(properties.label);
+    }
+    if (properties.size) {
+      nodeSelection.size(properties.size);
+    }
+    if (properties.pos) {
+      nodeSelection.pos(properties.pos);
+    }
   }
 }
 

@@ -14,9 +14,8 @@ class Graph {
    * @param element The element for the graph to bind to.
    * @param size The size of the graph.
    */
-  constructor(element: string, size: [number, number] = [400, 400]) {
+  constructor(element: string) {
     this._canvas = algoX.createCanvas(element);
-    this._canvas.size(size).zoomtoggle(true);
     return this;
   }
 
