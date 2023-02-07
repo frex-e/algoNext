@@ -5,31 +5,26 @@ class Node {
     /**
      * You should not call this constructor directly.
      */
-    constructor(id, canvas) {
+    constructor(id, canvas, duration = 0) {
         this._label = null;
         this._color = 'gray';
-        this.attributes = {};
+        this.data = {};
         /**
          * Please do not touch, it will break things.
          */
         this._edges = [];
         this._id = id;
         this._canvas = canvas;
-        canvas.node(id).duration(0.01).add().color(this._color);
+        canvas.node(id).duration(duration / 1000).add().color(this._color);
         return this;
-    }
-    setValue(value) {
-        this._value = value;
-        this._canvas.node(this._id).label(0).text(value).add();
-        return this;
-    }
-    getValue() {
-        return this._value;
     }
     setLabel(label) {
         this._label = label;
         this._canvas.node(this._id).label("label").text(label).color('black').duration(0).add();
         return this;
+    }
+    getLabel() {
+        return this._label;
     }
     /**
      * @returns The id of the node.
@@ -40,9 +35,9 @@ class Node {
     /**
      * @param color The color of the node.
      */
-    setColor(color) {
+    setColor(color, duration = 250) {
         this._color = color;
-        this._canvas.node(this._id).color(color);
+        this._canvas.node(this._id).duration(duration / 1000).color(color);
         return this;
     }
     /**
@@ -89,12 +84,12 @@ class Node {
     outdegree() {
         return this.outgoingEdges().length;
     }
-    setAttribute(key, value) {
-        this.attributes[key] = value;
+    setData(key, value) {
+        this.data[key] = value;
         return this;
     }
-    getAttribute(key) {
-        return this.attributes[key];
+    getData(key) {
+        return this.data[key];
     }
     setPosition(x, y) {
         this._canvas.node(this._id).pos([x, y]);
@@ -104,13 +99,6 @@ class Node {
         this._canvas.node(this._id).highlight(delay / 1000).duration(delay / 1000).color(color).size('1.25x');
         return this;
     }
-    /**
-     * Exposes underlying algox api which gives more control.
-     * If you wish to use, view Algorithmx's documentation on highlight.
-     */
-    rawHighlight() {
-        return this._canvas.node(this._id).highlight();
-    }
     setSize(size) {
         this._canvas.node(this._id).size(size);
         return this;
@@ -118,6 +106,21 @@ class Node {
     setFixed(fixed) {
         this._canvas.node(this._id).fixed(fixed);
         return this;
+    }
+    setProperties(properties, duration = 250) {
+        let nodeSelection = this._canvas.node(this._id).duration(duration / 1000);
+        if (properties.color) {
+            nodeSelection.color(properties.color);
+        }
+        if (properties.label) {
+            nodeSelection.label('label').text(properties.label);
+        }
+        if (properties.size) {
+            nodeSelection.size(properties.size);
+        }
+        if (properties.pos) {
+            nodeSelection.pos(properties.pos);
+        }
     }
 }
 export default Node;

@@ -7,12 +7,11 @@ class Graph {
      * @param element The element for the graph to bind to.
      * @param size The size of the graph.
      */
-    constructor(element, size = [400, 400]) {
+    constructor(element) {
         this.cunter = 0;
         this._nodes = [];
         this._edges = [];
         this._canvas = algoX.createCanvas(element);
-        this._canvas.size(size).zoomtoggle(true);
         return this;
     }
     /**

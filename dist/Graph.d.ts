@@ -12,7 +12,7 @@ declare class Graph {
      * @param element The element for the graph to bind to.
      * @param size The size of the graph.
      */
-    constructor(element: string, size?: [number, number]);
+    constructor(element: string);
     /**
      * Waits.
      * @param ms The amount of time to wait in ms;

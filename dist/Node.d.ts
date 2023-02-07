@@ -1,15 +1,20 @@
 import type { Canvas } from 'algorithmx';
 import type Edge from './Edge.js';
+export type NodeProperties = {
+    color?: string;
+    label?: string | number;
+    size?: string | number;
+    pos?: [number, number];
+};
 /**
  * A node in a graph.
  */
 declare class Node {
     private _canvas;
-    private _value;
     private _label;
     private _id;
     private _color;
-    attributes: Record<string | number, any>;
+    data: Record<string | number, any>;
     /**
      * Please do not touch, it will break things.
      */
@@ -17,10 +22,9 @@ declare class Node {
     /**
      * You should not call this constructor directly.
      */
-    constructor(id: string | number, canvas: Canvas);
-    setValue(value: any): this;
-    getValue(): any;
+    constructor(id: string | number, canvas: Canvas, duration?: number);
     setLabel(label: string | number): this;
+    getLabel(): string | number;
     /**
      * @returns The id of the node.
      */
@@ -28,7 +32,7 @@ declare class Node {
     /**
      * @param color The color of the node.
      */
-    setColor(color: string): this;
+    setColor(color: string, duration?: number): this;
     /**
      * @returns The color of the node.
      */
@@ -51,16 +55,12 @@ declare class Node {
     degree(): number;
     indegree(): number;
     outdegree(): number;
-    setAttribute(key: string, value: any): this;
-    getAttribute(key: string): any;
+    setData(key: string, value: any): this;
+    getData(key: string): any;
     setPosition(x: number, y: number): this;
     highlight(color?: string, delay?: number): this;
-    /**
-     * Exposes underlying algox api which gives more control.
-     * If you wish to use, view Algorithmx's documentation on highlight.
-     */
-    rawHighlight(): import("algorithmx").NodeSelection<string | number>;
     setSize(size: number | string): this;
     setFixed(fixed: boolean): this;
+    setProperties(properties: NodeProperties, duration?: number): void;
 }
 export default Node;
